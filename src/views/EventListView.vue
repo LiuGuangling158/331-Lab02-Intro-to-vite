@@ -9,7 +9,7 @@ import EventService from '@/services/EventService'
 const events = ref<Event[] | null>(null)
 const totalEvents = ref(0)
 const hasNextPage = computed(() => {
-  const totalPages = Math.ceil(totalEvents.value / 2)
+  const totalPages = Math.ceil(totalEvents.value / 3)
   return page.value < totalPages
 })
 
@@ -25,8 +25,7 @@ const router = useRouter()
 
 onMounted((): void => {
   watchEffect(() => {
-    events.value = null
-    EventService.getEvents(2, page.value)
+    EventService.getEvents(3, page.value)
           .then((response) => {
             events.value = response.data
             totalEvents.value = response.headers['x-total-count']
